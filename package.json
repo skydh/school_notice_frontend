@@ -39,6 +39,7 @@
   },
   "dependencies": {
     "antd": "^3.4.1",
+    "babel-plugin-import": "^1.7.0",
     "es6-promise": "^3.2.1",
     "immutable": "^3.8.1",
     "react": "^15.3.1",

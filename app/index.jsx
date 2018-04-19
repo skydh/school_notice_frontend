@@ -13,7 +13,7 @@ import RouterMap from './router/RouteMap'
 // 测试 fetch 的功能
 import {getData, postData} from './fetch/test.js'
 // import { getData, postData } from './fetch/data.js'
- getData();
+
 // postData();
 
 render(

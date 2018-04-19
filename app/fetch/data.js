@@ -1,5 +1,6 @@
 import {get} from './get.js'
 import {post} from './post.js'
+import {hashHistory} from 'react-router'
 /**
  * 封装前端请求
  * @type {string}
@@ -16,8 +17,16 @@ export function login(url) {
         debugger
         console.log(text)
         let temp = JSON.parse(text);
-        document.cookie = "userId=" + temp.backData.userId;
-        document.cookie = "token=" + temp.backData.token;
+        if (temp.success) {
+            document.cookie = "userId=" + temp.backData.userId;
+            document.cookie = "token=" + temp.backData.token;
+
+            hashHistory.push('/showNotice');
+        } else {
+
+            hashHistory.push('/*');
+        }
+
     })
 
     // '/api/2' 获取json
@@ -35,8 +44,15 @@ export function registerFun(url) {
         debugger
         console.log(text)
         let temp = JSON.parse(text);
-        document.cookie = "userId=" + temp.backData.userId;
-        document.cookie = "token=" + temp.backData.token;
+        if (temp.success) {
+            document.cookie = "userId=" + temp.backData.userId;
+            document.cookie = "token=" + temp.backData.token;
+            hashHistory.push('/showNotice');
+
+        } else {
+            hashHistory.push('/*');
+
+        }
     })
 
 }

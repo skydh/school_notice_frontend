@@ -1,5 +1,5 @@
 import React from 'react'
-import { Router, Route, IndexRoute } from 'react-router'
+import {Router, Route, IndexRoute} from 'react-router'
 
 import App from '../containers'
 import Home from '../containers/Home'
@@ -8,6 +8,8 @@ import User from '../containers/User'
 import Search from '../containers/Search'
 import Detail from '../containers/Detail'
 import NotFound from '../containers/404'
+import showNotice from '../components/showNotice'
+import AllData from '../components/AllData'
 var hashHistory = Router.hashHistory;
 
 import Login from '../components/Login'
@@ -23,8 +25,8 @@ class RouterMap extends React.Component {
                 <Route path='/' component={App}>
                     <IndexRoute component={Login}/>
                     <Route path='/register' component={Register}/>
-                    <Route path='/User' component={User}/>
-                    <Route path='/search/:type(/:keyword)' component={Search}/>
+                    <Route path='/showNotice' component={showNotice}/>
+                    <Route path='/alldata' component={AllData}/>
                     <Route path='/detail/:id' component={Detail}/>
                     <Route path='*' component={NotFound}/>
                 </Route>

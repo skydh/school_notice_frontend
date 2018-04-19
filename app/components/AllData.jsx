@@ -1,4 +1,4 @@
-import {Form, Icon, Input, Button, Checkbox} from 'antd';
+import {Form, Icon, Input, Button, Cascader} from 'antd';
 import ReactDOM from 'react-dom'
 import React from 'react'
 const FormItem = Form.Item;
@@ -6,10 +6,11 @@ import {login} from "../fetch/data"
 var that;
 import {hashHistory} from 'react-router'
 import {getData, postData} from '../fetch/test.js'
+require('antd/dist/antd.css') ;
 /**
  * 这里加上redux来判断是否登录状态，但是考虑学习时间成本，无奈去掉
  */
-class NormalLoginForm extends React.Component {
+class AllDataForm extends React.Component {
 
 
     handleSubmit(e) {
@@ -34,6 +35,33 @@ class NormalLoginForm extends React.Component {
     }
 
     render() {
+        const options = [{
+            value: 'zhejiang',
+            label: 'Zhejiang',
+            children: [{
+                value: 'hangzhou',
+                label: 'Hangzhou',
+                children: [{
+                    value: 'xihu',
+                    label: 'West Lake',
+                }],
+            }],
+        }, {
+            value: 'jiangsu',
+            label: 'Jiangsu',
+            children: [{
+                value: 'nanjing',
+                label: 'Nanjing',
+                children: [{
+                    value: 'zhonghuamen',
+                    label: 'Zhong Hua Men',
+                }],
+            }],
+        }];
+
+        function onChange(value) {
+            console.log(value);
+        }
 
         const {getFieldDecorator} = this.props.form;
         return (
@@ -42,23 +70,17 @@ class NormalLoginForm extends React.Component {
                     {getFieldDecorator('userName', {
                         rules: [{required: true, message: '请输入用户名!'}],
                     })(
-                        <Input prefix={<Icon type="user" style={{color: 'rgba(0,0,0,.25)'}}/>} placeholder="请输入用户名"/>
+                        <Cascader options={options} onChange={onChange} placeholder="Please select"/>
                     )}
                 </FormItem>
-                <FormItem>
-                    {getFieldDecorator('password', {
-                        rules: [{required: true, message: '请输入密码!'}],
-                    })(
-                        <Input prefix={<Icon type="lock" style={{color: 'rgba(0,0,0,.25)'}}/>} type="password"
-                               placeholder="请输入密码"/>
-                    )}
-                </FormItem>
+
+
                 <FormItem>
 
                     <Button type="primary" htmlType="submit">
-                        登录
+                        提交信息
                     </Button>
-                    Or <Button onClick={this.registerfun}>注册!</Button>
+
                 </FormItem>
             </Form>
 
@@ -68,6 +90,6 @@ class NormalLoginForm extends React.Component {
     }
 }
 
-const WrappedNormalLoginForm = Form.create()(NormalLoginForm);
+const WrappedNormalAllDataForm = Form.create()(AllDataForm);
 
-export default WrappedNormalLoginForm
+export default WrappedNormalAllDataForm
