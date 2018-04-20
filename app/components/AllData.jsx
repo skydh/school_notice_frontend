@@ -43,6 +43,15 @@ class AllDataForm extends React.Component {
                 }).then(text => {
                     debugger
                     let temp = JSON.parse(text);
+                    if (temp.success) {
+                        document.cookie = "userId=" + temp.backData.userId;
+                        document.cookie = "token=" + temp.backData.token;
+
+                        hashHistory.push('/showNotice');
+                    } else {
+
+                        hashHistory.push('/*');
+                    }
 
                 })
             }
@@ -68,7 +77,7 @@ class AllDataForm extends React.Component {
     }
 
     render() {
-        
+
         function onChange(value) {
             console.log(value);
         }
