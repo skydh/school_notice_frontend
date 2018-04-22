@@ -1,4 +1,4 @@
-import {Form, Icon, List, Avatar, Button, Checkbox} from 'antd';
+import {Form, Icon, List, Avatar, Button, Checkbox,message} from 'antd';
 import ReactDOM from 'react-dom'
 import React from 'react'
 const FormItem = Form.Item;
@@ -21,30 +21,40 @@ class showNotice extends React.Component {
         that = this;
         //进来就获取信息
         var result = get("http://localhost:8090/school-notice/notice/showListAll")
-
         result.then(res => {
-
             return res.text()
         }).then(text => {
-            debugger
+
             let temp = JSON.parse(text);
-
             this.setState({data: temp.backData.list, isShow: temp.backData.approveMenu});
-            that.state = temp;
-
         })
     }
 
     approve() {
-        hashHistory.push('/register');
+        hashHistory.push('/showApprove');
     }
 
     noticemanage() {
-        hashHistory.push('/register');
+        hashHistory.push('/showList');
     }
 
     alldata() {
         hashHistory.push('/alldata');
+    }
+
+    onclickT(item, a) {
+        debugger
+        hashHistory.push('/detail/' + item.id);
+    }
+
+    loginout(item, a) {
+        var result = get("http://localhost:8090/school-notice/user/logout")
+        result.then(res => {
+            return res.text()
+        }).then(text => {
+
+
+        })
     }
 
     render() {
@@ -62,6 +72,7 @@ class showNotice extends React.Component {
                 }
 
                 <Button onClick={this.alldata}>资料完善</Button>
+                <Button onClick={this.loginout}>登出</Button>
 
                 <div>
                     <List
@@ -71,7 +82,7 @@ class showNotice extends React.Component {
                             <List.Item>
                                 <List.Item.Meta
                                     description={item.writer}
-                                    title={<a href="https://ant.design">{item.title}</a>}
+                                    title={<a onClick={this.onclickT.bind(this, item)}>{item.title}</a>}
 
                                 />
                             </List.Item>

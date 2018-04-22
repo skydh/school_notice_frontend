@@ -1,6 +1,7 @@
 import {get} from './get.js'
 import {post} from './post.js'
 import {hashHistory} from 'react-router'
+import {Form, Icon, List, Avatar, Button, Checkbox,message} from 'antd';
 /**
  * 封装前端请求
  * @type {string}
@@ -22,9 +23,11 @@ export function login(url) {
             document.cookie = "token=" + temp.backData.token;
 
             hashHistory.push('/showNotice');
+            message.success('登录成功');
         } else {
 
             hashHistory.push('/*');
+            message.error('登录失败');
         }
 
     })
@@ -48,18 +51,20 @@ export function registerFun(url) {
             document.cookie = "userId=" + temp.backData.userId;
             document.cookie = "token=" + temp.backData.token;
             hashHistory.push('/showNotice');
+            message.success('注册成功');
 
         } else {
             hashHistory.push('/*');
+            message.error('注册失败');
 
         }
     })
 
 }
 
-export function postData(url, data) {
+export function doNotice(url, data) {
     // '/api/post' 提交数据
-    var result = post(weburl, data)
+    var result = post(url, data)
 
     result.then(res => {
         return res.json()
